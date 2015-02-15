@@ -1,40 +1,83 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Http;
-using System.Web.Http.Results;
 using TelldusCoreWrapper;
-using TelldusCoreWrapper.Entities;
 using TelldusCoreWrapper.Service;
 
 namespace anderbakk.HomeAutomation.Tellstick.Controllers
 {
     public class DevicesController : ApiController
     {
-        private TelldusCoreService _telldusCoreService;
+        private readonly TelldusCoreService _telldusCoreService;
 
         public DevicesController()
         {
             _telldusCoreService = new TelldusCoreService(new TelldusCoreLibraryWrapper());
         }
 
-        [Route("Devices")]
-        public IEnumerable<ReceiverDevice> GetAll()
+        [Route("Receivers")]
+        public IHttpActionResult GetAllReceivers()
         {
-            return _telldusCoreService.GetDevices();
+            return Ok(_telldusCoreService.GetDevices());
         }
 
-        [Route("Devices/{deviceId}")]
-        public IHttpActionResult Get(int deviceId)
+        [Route("Receivers/{id}")]
+        public IHttpActionResult Get(int id)
         {
-            
-                _telldusCoreService.TurnOn(deviceId);
+            var allDevices = _telldusCoreService.GetDevices();
+
+            var requestDevice = allDevices.SingleOrDefault(device => device.Id == id);
+
+            if (requestDevice != null)
+                return Ok(requestDevice);
+            return NotFound();
+        }
+
+        [Route("Receivers/{id}/turn/on")]
+        public IHttpActionResult GetTurnedOn(int id)
+        {
+            _telldusCoreService.TurnOn(id);
             return Ok();
         }
 
-        [Route("Sensor")]
-        public IEnumerable<Sensor> GetAllSensors()
+        [Route("Receivers/{id}/turn/off")]
+        public IHttpActionResult GetTurnedOff(int id)
         {
-            return _telldusCoreService.GetSensors();
+            _telldusCoreService.TurnOff(id);
+            return Ok();
+        }
+
+        [Route("Receivers/{id}/dim/{level}")]
+        public IHttpActionResult GetDimmed(int id, int level)
+        {
+            _telldusCoreService.Dim(id, level);
+            return Ok();
+        }
+
+        [Route("Sensors")]
+        public IHttpActionResult GetAllSensors()
+        {
+            return Ok(_telldusCoreService.GetSensors());
+        }
+
+        [Route("Sensors/{id}")]
+        public IHttpActionResult GetSensor(int id)
+        {
+            var allSensors = _telldusCoreService.GetSensors();
+            var requestedSensor = allSensors.SingleOrDefault(sensor => sensor.Id == id);
+
+            if (requestedSensor != null)
+                return Ok(requestedSensor);
+            return NotFound();
+        }
+
+        [Route("Sensors/{id}/values")]
+        public IHttpActionResult GetSensorValue(int id)
+        {
+            var allSensors = _telldusCoreService.GetSensors();
+            var requestedSensor = allSensors.SingleOrDefault(sensor => sensor.Id == id);
+
+            var result = _telldusCoreService.GetValuesFromSensor(requestedSensor);
+            return Ok(result);
         }
 
     }
