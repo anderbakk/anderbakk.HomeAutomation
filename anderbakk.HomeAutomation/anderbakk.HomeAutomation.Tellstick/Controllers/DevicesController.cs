@@ -1,10 +1,13 @@
 ﻿using System.Linq;
 using System.Web.Http;
+using anderbakk.HomeAutomation.Tellstick.Models;
 using TelldusCoreWrapper;
+using TelldusCoreWrapper.Entities;
 using TelldusCoreWrapper.Service;
 
 namespace anderbakk.HomeAutomation.Tellstick.Controllers
 {
+    [RoutePrefix("api")]
     public class DevicesController : ApiController
     {
         private readonly TelldusCoreService _telldusCoreService;
@@ -14,52 +17,59 @@ namespace anderbakk.HomeAutomation.Tellstick.Controllers
             _telldusCoreService = new TelldusCoreService(new TelldusCoreLibraryWrapper());
         }
 
-        [Route("Receivers")]
+        [Route("receivers")]
         public IHttpActionResult GetAllReceivers()
         {
             return Ok(_telldusCoreService.GetDevices());
         }
 
-        [Route("Receivers/{id}")]
+        [Route("receivers/{id}")]
         public IHttpActionResult Get(int id)
         {
-            var allDevices = _telldusCoreService.GetDevices();
-
-            var requestDevice = allDevices.SingleOrDefault(device => device.Id == id);
+            var requestDevice = GetReceiverDevice(id);
 
             if (requestDevice != null)
                 return Ok(requestDevice);
             return NotFound();
         }
 
-        [Route("Receivers/{id}/turn/on")]
-        public IHttpActionResult GetTurnedOn(int id)
+        private ReceiverDevice GetReceiverDevice(int id)
         {
-            _telldusCoreService.TurnOn(id);
+            var allDevices = _telldusCoreService.GetDevices();
+            return allDevices.SingleOrDefault(device => device.Id == id);
+        }
+
+        [Route("receivers/{id}")]
+        public IHttpActionResult PutDeviceInState(int id, ReceiverStateRequestModel state)
+        {
+            var device = GetReceiverDevice(id);
+
+            if (device == null)
+                return NotFound();
+
+            if (state == null || !state.MethodIsEnum())
+            {
+                return BadRequest("Method is not defined or valid");
+            }
+
+            var method = state.GetMethod();
+            if (!device.IsMethodSupported(method))
+            {
+                return BadRequest("Method is not supported by device");
+            }
+
+            //Extend _tellduscoreservice to support method directly?
+
             return Ok();
         }
 
-        [Route("Receivers/{id}/turn/off")]
-        public IHttpActionResult GetTurnedOff(int id)
-        {
-            _telldusCoreService.TurnOff(id);
-            return Ok();
-        }
-
-        [Route("Receivers/{id}/dim/{level}")]
-        public IHttpActionResult GetDimmed(int id, int level)
-        {
-            _telldusCoreService.Dim(id, level);
-            return Ok();
-        }
-
-        [Route("Sensors")]
+        [Route("sensors")]
         public IHttpActionResult GetAllSensors()
         {
             return Ok(_telldusCoreService.GetSensors());
         }
 
-        [Route("Sensors/{id}")]
+        [Route("sensors/{id}")]
         public IHttpActionResult GetSensor(int id)
         {
             var allSensors = _telldusCoreService.GetSensors();
@@ -70,7 +80,7 @@ namespace anderbakk.HomeAutomation.Tellstick.Controllers
             return NotFound();
         }
 
-        [Route("Sensors/{id}/values")]
+        [Route("sensors/{id}/values")]
         public IHttpActionResult GetSensorValue(int id)
         {
             var allSensors = _telldusCoreService.GetSensors();

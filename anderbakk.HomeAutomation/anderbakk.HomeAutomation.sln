@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "anderbakk.HomeAutomation.Ho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "anderbakk.HomeAutomation.Tellstick", "anderbakk.HomeAutomation.Tellstick\anderbakk.HomeAutomation.Tellstick.csproj", "{5DD60B99-0AE0-4524-A2FD-A94EC462BCA4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "anderbakk.HomeAutomation.SamsungTv", "anderbakk.HomeAutomation.SamsungTv\anderbakk.HomeAutomation.SamsungTv.csproj", "{C166DB9C-718F-4B50-B744-928CC1F31F7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{5DD60B99-0AE0-4524-A2FD-A94EC462BCA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DD60B99-0AE0-4524-A2FD-A94EC462BCA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DD60B99-0AE0-4524-A2FD-A94EC462BCA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C166DB9C-718F-4B50-B744-928CC1F31F7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C166DB9C-718F-4B50-B744-928CC1F31F7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C166DB9C-718F-4B50-B744-928CC1F31F7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C166DB9C-718F-4B50-B744-928CC1F31F7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

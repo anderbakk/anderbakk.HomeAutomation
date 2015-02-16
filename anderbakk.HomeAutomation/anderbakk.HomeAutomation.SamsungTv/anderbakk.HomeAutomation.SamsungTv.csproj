@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5DD60B99-0AE0-4524-A2FD-A94EC462BCA4}</ProjectGuid>
+    <ProjectGuid>{C166DB9C-718F-4B50-B744-928CC1F31F7E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>anderbakk.HomeAutomation.Tellstick</RootNamespace>
-    <AssemblyName>anderbakk.HomeAutomation.Tellstick</AssemblyName>
+    <RootNamespace>anderbakk.HomeAutomation.SamsungTv</RootNamespace>
+    <AssemblyName>anderbakk.HomeAutomation.SamsungTv</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,36 +32,18 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TelldusCoreWrapper">
-      <HintPath>..\lib\TelldusCoreWrapper.dll</HintPath>
-    </Reference>
-    <Reference Include="TelldusCoreWrapper.Entities">
-      <HintPath>..\lib\TelldusCoreWrapper.Entities.dll</HintPath>
-    </Reference>
-    <Reference Include="TelldusCoreWrapper.Service">
-      <HintPath>..\lib\TelldusCoreWrapper.Service.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\DevicesController.cs" />
-    <Compile Include="Models\ReceiverStateRequestModel.cs" />
-    <Compile Include="Tellstick.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TelldusCore.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
